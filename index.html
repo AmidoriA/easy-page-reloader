@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style type="text/css">
+  #main-frame {
+    width: 100%;
+    height: 800px;
+  }
+  </style>
+</head>
+
+<body>
+  <div>
+    <input type="text" size="50" id="url-text">
+  </div>
+
+  <div>
+    <button type="button" class="btn btn-primary" id="submit-button">Set URL</button>  
+  </div>  
+
+  <p>
+    This page will refresh every 5 seconds.
+  </p>
+
+  <iframe id="main-frame"></iframe>
+
+  <script>
+  (function() {
+    var mainFrame = document.querySelector('#main-frame');
+    var urlText = document.querySelector('#url-text');    
+    var timer;
+
+    var load = function() {
+      mainFrame.contentWindow.location = urlText.value;
+    }
+
+    document.querySelector('#submit-button').addEventListener('click', function() {     
+      if (timer) {
+        clearInterval(timer);
+      }
+
+      load();
+      timer = setInterval(load, 5000);
+    });
+
+  })();
+  </script>
+</body>
+</html>
